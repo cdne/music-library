@@ -97,9 +97,12 @@ def youngest_album():  # requirement 7.2 youngest album
 print('The youngest album is: ', youngest_album())
 
 
-# def count_all_albums(): # requirement 7
-#     return
+def count_all_albums():  # requirement 7.3 total no. of albums
+    dict_from_file = read_file()
+    return len(dict_from_file)
 
+
+print('Total number of albums: ', count_all_albums())
 
 # def how_many_given_genre(): # requirement 7
 #     return
