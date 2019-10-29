@@ -85,8 +85,16 @@ def oldest_album():  # requirement 7.1 oldest album
 print('The oldest album is: ', oldest_album())
 
 
-# def youngest_album(): # requirement 7
-#     return
+def youngest_album():  # requirement 7.2 youngest album
+    dict_from_file = read_file()
+    album_years = []
+    for key in dict_from_file:
+        album_years.append([key, dict_from_file[key][2]])
+    album_years.sort(key=lambda x: int(x[1]))
+    return dict_from_file[album_years[-1][0]]
+
+
+print('The youngest album is: ', youngest_album())
 
 
 # def count_all_albums(): # requirement 7
