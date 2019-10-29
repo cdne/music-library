@@ -1,8 +1,5 @@
 from collections import defaultdict
 
-
-
-
 # read file and place lines in dictionary
 
 def read_file():
@@ -16,7 +13,8 @@ def read_file():
     return d  
 
 
-g = read_file()
+# placeholder for files
+hold_lines = read_file()
 
 def sort_by_genre(temp_dict):
     genre = []
@@ -27,7 +25,4 @@ def sort_by_genre(temp_dict):
     print('sorted by genre', genre)
     for i in genre:
         print(f'{temp_dict[i[0]]}\n')
-        
 
-
-sort_by_genre(g)
