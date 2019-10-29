@@ -40,15 +40,33 @@ def sort_by_genre(temp_dict): # requirement 2
 #     return
 
 
-# def artist_albums(): #requirement 5
-#     input('artist')
-#     return
+def artist_albums(temp_dict): #requirement 5
+    # read from user name
+    # itterate over index 0 with string if is in then show all albums
+    get_input = input("Enter the name of the artist: ")
+    artist = []
+    albums_from_artist = []
+    i = 0
+    for key in temp_dict:
+        artist.append([key, temp_dict[key][0]])
+        if get_input in artist[i][1]:
+             albums_from_artist.append(artist[i][0])
+        i += 1
+    
+    return albums_from_artist
+
+    
 
 
-# def sort_by_album_name(): # requirement 6
-#     input('album name')
-#     return
-
+def sort_by_album_name(temp_dict): # requirement 6
+    get_album_input = input("Enter album name: ")
+    album_details = []
+    for keys in temp_dict:
+        if get_album_input in keys:
+            return temp_dict[keys]
+            
+   
+  
 
 # def oldest_album(): # requirement 7
 #     return
