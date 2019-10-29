@@ -104,9 +104,32 @@ def count_all_albums():  # requirement 7.3 total no. of albums
 
 print('Total number of albums: ', count_all_albums())
 
-# def how_many_given_genre(): # requirement 7
-#     return
 
+def how_many_given_genre():  # requirement 7.4 how many albums based on genre
+    dict_from_file = read_file()
+    genres_list = []
+    for key in dict_from_file:
+        genres_list.append(dict_from_file[key][3])
+    valid_input = False
+    while valid_input is False:
+        selected_genre = input('Please select the genre: ')
+        if selected_genre in genres_list:
+            valid_input = True
+        elif selected_genre == 'exit':
+            print('Thanks for using our product. Have a nice day!')
+            exit()
+        else:
+            print('There are no albums of this genre in the music library.'
+                  ' Please select another genre or type "exit" to quit '
+                  'the program.')
+    how_many_albums_by_genre = 0
+    for key in dict_from_file:
+        if selected_genre in dict_from_file[key]:
+            how_many_albums_by_genre += 1
+    return how_many_albums_by_genre
+
+
+print('Your selected genre returned ', how_many_given_genre())
 
 # def suggested_albums(): # requirement 8
 #     input('album name')
