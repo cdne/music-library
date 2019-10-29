@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 # read file and place lines in dictionary
 
 def read_file(): 
@@ -32,12 +33,34 @@ def sort_by_genre(temp_dict): # requirement 2
 #     return
 
 
-# def shortest(): # requireent 4
-#     return
+def convert_to_seconds(minsec):  # required in shortest_longest
+    list_minutes = []
+    for i in minsec:
+        if i != ':':
+            list_minutes.append(i)
+        else:
+            break
+    minutes = ''.join(list_minutes)
+    return int(minutes) * 60 + int((minsec[-2:]))
 
 
-# def longest(): # requirement 4
-#     return
+def shortest_longest(what_album):  # requireent 4
+    dict_from_file = read_file()
+    albums_list = []
+    for key in dict_from_file:
+        albums_list.append([key, dict_from_file[key][4]])
+    for i in albums_list:
+        i[1] = convert_to_seconds(i[1])
+    albums_list.sort(key=lambda x: x[1])
+    if what_album == 'shortest':
+        return dict_from_file[albums_list[0][0]]
+    elif what_album == 'longest':
+        return dict_from_file[albums_list[-1][0]]
+
+
+print('Requested album is', shortest_longest('shortest'))
+print('Requested album is', shortest_longest('longest'))
+
 
 
 # def artist_albums(): #requirement 5
