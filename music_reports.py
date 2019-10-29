@@ -14,8 +14,9 @@ def read_file():
 
 
 
-# placeholder for files
+# placeholder for lines in dictionary format with album as keys and info about album as list
 hold_lines = read_file()
+
 
 def sort_by_genre(temp_dict): # requirement 2
     genre = []
@@ -55,9 +56,6 @@ def artist_albums(temp_dict): #requirement 5
     
     return albums_from_artist
 
-    
-
-
 def sort_by_album_name(temp_dict): # requirement 6
     get_album_input = input("Enter album name: ")
     album_details = []
@@ -84,10 +82,35 @@ def sort_by_album_name(temp_dict): # requirement 6
 #     return
 
 
-# def suggested_albums(): # requirement 8
-#     input('album name')
-#     # suggest albums with the same genre
-#     return
+def suggested_albums(temp_dict): # requirement 8
+    # TO DO remove input album from created list
+
+    get_album_input = input('Enter album name: ')
+
+    get_genre_from_input = ''
+    suggested = []
+    
+    def get_genre():
+        for keys in temp_dict:
+            if get_album_input in keys:
+              return temp_dict[keys][3]               
+    
+
+    get_genre_from_input = get_genre()
+    
+
+    for keys in temp_dict:
+       
+        albums_genre = temp_dict[keys][3]
+
+        if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
+            suggested.append(temp_dict[keys])
+  
+
+    return suggested
+    
+
+    
 
 
 # def add_new_album(): # requirement 9
