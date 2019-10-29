@@ -1,8 +1,10 @@
-from music_reports import *
+from music_reports_d import *
 
 def print_unsorted():
-    print(read_file())
+
+    print(sort_by_genre(hold_lines))
     
-
-
+ 
 print_unsorted()
+
+#
