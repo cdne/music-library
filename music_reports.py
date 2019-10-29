@@ -132,11 +132,38 @@ def how_many_given_genre():  # requirement 7.4 how many albums based on genre
 #     return
 
 
-# def add_new_album(): # requirement 9
-#     return
+# requirement 9, what if edit and add in the same session,
+# without exporting
 
 
-def edit_album():  # requirement 10, needs mistake proof
+def add_new_album():
+    dict_from_file = read_file()
+    new_album_list = []
+    new_album_name = input('Please enter new album name: ')
+    new_album_artist = input('Please enter new album artist: ')
+    new_album_list.append(new_album_artist)
+    new_album_list.append(new_album_name)
+    new_album_year = input('Please enter the album year: ')
+    new_album_list.append(new_album_year)
+    new_album_genre = input('Please enter the album genre: ')
+    new_album_list.append(new_album_genre)
+    new_album_length = input('Please enter the album length: ')
+    new_album_list.append(new_album_length)
+    dict_from_file[new_album_name] = new_album_list
+    print('Please be careful, the new album is only saved in this session.'
+          ' If you would like to keep teh album in the list for longer, '
+          ' please consider exporting the current session library.')
+    print(dict_from_file)
+    # return
+
+
+add_new_album()
+
+# requirement 10, needs mistake proof,
+# what if edit and add in the same session
+
+
+def edit_album():
     dict_from_file = read_file()
     valid_album_name = False
     while valid_album_name is False:
@@ -170,6 +197,6 @@ def edit_album():  # requirement 10, needs mistake proof
     # return
 
 
-edit_album()
+# edit_album()
 
 # def export_new_to_file(): # requirement 11
