@@ -21,9 +21,12 @@ g = read_file()
 def sort_by_genre(temp_dict):
     genre = []
     for key in temp_dict:
-        print(key)
-        # genre.append([values,key])
-        # genre.sort()
+        genre.append([key, temp_dict[key][3]])
+    print(genre)
+    genre.sort(key = lambda x: x[1])
+    print('sorted by genre', genre)
+    for i in genre:
+        print(f'{temp_dict[i[0]]}\n')
         
 
 
