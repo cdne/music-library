@@ -1,4 +1,4 @@
-# Music Library
+# Music Library #
 
 This is an exercise assigned to a team of 3 students in programming school.
 
@@ -16,16 +16,26 @@ Data Program have to import .txt file with values separated by commas. Each line
 
 Program features
 
-As a user I want to view all imported albums
-As a user I want to find all albums by genre
-As a user I want to find all albums from given time range
-As a user I want to find shortest/longest album
-As a user I want to find all albums created by given artist
-As a user I want to find album by album name
-As a user I want to get full report in form of set of given statistics (longest album, shortest album, oldest album, youngest album, all albums count + additional info, how many albums are given the genres)
+1. As a user I want to view all imported albums 
+
+2. As a user I want to find all albums by genre
+
+3. As a user I want to find all albums from given time range
+
+4. As a user I want to find shortest/longest album
+
+5. As a user I want to find all albums created by given artist
+
+6. As a user I want to find album by album name
+
+7. As a user I want to get full report in form of set of given statistics (longest album, shortest album, oldest album, youngest album, all albums count + additional info, how many albums are given the genres)
+
 Additional features
 
-As a user I want to view all similar music genres albums when searching for particular album (Like in spotify, where user receives context suggestions regarding similar bands or tracks)
-As a user I want to add new album
-As a user I want to edit already existing albums
-As a user I want to save all new albums to external file
+8. As a user I want to view all similar music genres albums when searching for particular album (Like in spotify, where user receives context suggestions regarding similar bands or tracks)
+
+9. As a user I want to add new album
+
+10. As a user I want to edit already existing albums
+
+11. As a user I want to save all new albums to external file
