@@ -2,8 +2,6 @@ from collections import defaultdict
 
 # read file and place lines in a dictionary
 
-
-
 def read_file():
     d = {}
     with open("file.txt", "r") as file:
@@ -12,6 +10,11 @@ def read_file():
             key, values = items[1], items[:]
             d[str(key)] = values
     return d
+
+# all albums in a dictionary with values as a list
+# global dictionary because it is used by multiple functions
+
+all_albums = read_file()
 
 
 def sort_by_genre(temp_dict):  # requirement 2
@@ -24,14 +27,17 @@ def sort_by_genre(temp_dict):  # requirement 2
     for i in genre:
         print(f'{temp_dict[i[0]]}\n')
 
+
+# TO DO
+# output all values in list
 def time_range_album(temp_dict): # requirement 3
     x = int(input("Please insert a starting year: "))
     y = int(input("Please insert an ending year: "))
     years = []
     for i in range(x, y):
-        for key in d:
-            if int(d[key][2]) == i:
-                years.append([key, d[key][2]])
+        for key in temp_dict:
+            if int(temp_dict[key][2]) == i:
+                years.append([key, temp_dict[key][2]])
             years.sort(key = lambda x: int(x[1]))    
     return years
    
@@ -48,7 +54,7 @@ def convert_to_seconds(minsec):  # required in shortest_longest
 
 
 def shortest_longest(what_album):  # requireent 4
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     albums_list = []
     for key in dict_from_file:
         albums_list.append([key, dict_from_file[key][4]])
@@ -64,7 +70,8 @@ def shortest_longest(what_album):  # requireent 4
 # print('Requested album is', shortest_longest('shortest'))
 # print('Requested album is', shortest_longest('longest'))
 
-
+# TO DO
+# return all values in the list for that album
 def artist_albums(temp_dict): #requirement 5
     # read from user name
     # itterate over index 0 with string if is in then show all albums
@@ -87,9 +94,10 @@ def sort_by_album_name(temp_dict): # requirement 6
         if get_album_input in keys:
             return temp_dict[keys]
             
-
+# TO DO
+# print all of the same year
 def oldest_album():  # requirement 7.1 oldest album
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     album_years = []
     for key in dict_from_file:
         album_years.append([key, dict_from_file[key][2]])
@@ -101,7 +109,7 @@ def oldest_album():  # requirement 7.1 oldest album
 
 
 def youngest_album():  # requirement 7.2 youngest album
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     album_years = []
     for key in dict_from_file:
         album_years.append([key, dict_from_file[key][2]])
@@ -113,7 +121,7 @@ def youngest_album():  # requirement 7.2 youngest album
 
 
 def count_all_albums():  # requirement 7.3 total no. of albums
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     return len(dict_from_file)
 
 def suggested_albums(temp_dict): # requirement 8
@@ -145,7 +153,7 @@ def suggested_albums(temp_dict): # requirement 8
 
 
 def how_many_given_genre():  # requirement 7.4 how many albums based on genre
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     genres_list = []
     for key in dict_from_file:
         genres_list.append(dict_from_file[key][3])
@@ -180,8 +188,9 @@ def how_many_given_genre():  # requirement 7.4 how many albums based on genre
 # without exporting
 
 
-def add_new_album():
-    dict_from_file = read_file()
+def add_new_album(dict_from_file):
+    #global all_albums
+
     new_album_list = []
     new_album_name = input('Please enter new album name: ')
     new_album_artist = input('Please enter new album artist: ')
@@ -197,18 +206,19 @@ def add_new_album():
     print('Please be careful, the new album is only saved in this session.'
           ' If you would like to keep teh album in the list for longer, '
           ' please consider exporting the current session library.')
-    print(dict_from_file)
-    # return
+    # print(dict_from_file)
+    #all_albums[new_album_name] = new_album_list 
+    return all_albums
 
 
-add_new_album()
+# add_new_album()
 
 # requirement 10, needs mistake proof,
 # what if edit and add in the same session
 
 
 def edit_album():
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     valid_album_name = False
     while valid_album_name is False:
         album_to_edit = input('Please name the album you want to edit:')
