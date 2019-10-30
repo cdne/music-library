@@ -14,8 +14,6 @@ def read_file():
     return d
 
 
-
-
 def sort_by_genre(temp_dict):  # requirement 2
     genre = []
     for key in temp_dict:
@@ -26,10 +24,17 @@ def sort_by_genre(temp_dict):  # requirement 2
     for i in genre:
         print(f'{temp_dict[i[0]]}\n')
 
-# def time_range_album(): # requirement 3
-#     input('')
-#     return
-
+def time_range_album(temp_dict): # requirement 3
+    x = int(input("Please insert a starting year: "))
+    y = int(input("Please insert an ending year: "))
+    years = []
+    for i in range(x, y):
+        for key in d:
+            if int(d[key][2]) == i:
+                years.append([key, d[key][2]])
+            years.sort(key = lambda x: int(x[1]))    
+    return years
+   
 
 def convert_to_seconds(minsec):  # required in shortest_longest
     list_minutes = []
