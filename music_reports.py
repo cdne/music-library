@@ -12,11 +12,8 @@ def read_file():
     
     return d  
 
-
-
 # placeholder for lines in dictionary format with album as keys and info about album as list
 hold_lines = read_file()
-
 
 def sort_by_genre(temp_dict): # requirement 2
     genre = []
@@ -40,7 +37,6 @@ def sort_by_genre(temp_dict): # requirement 2
 # def longest(): # requirement 4
 #     return
 
-
 def artist_albums(temp_dict): #requirement 5
     # read from user name
     # itterate over index 0 with string if is in then show all albums
@@ -63,8 +59,6 @@ def sort_by_album_name(temp_dict): # requirement 6
         if get_album_input in keys:
             return temp_dict[keys]
             
-   
-  
 
 # def oldest_album(): # requirement 7
 #     return
@@ -93,12 +87,9 @@ def suggested_albums(temp_dict): # requirement 8
     def get_genre():
         for keys in temp_dict:
             if get_album_input in keys:
-              return temp_dict[keys][3]               
-    
-
+              return temp_dict[keys][3]
+                             
     get_genre_from_input = get_genre()
-    
-
     for keys in temp_dict:
        
         albums_genre = temp_dict[keys][3]
@@ -106,12 +97,8 @@ def suggested_albums(temp_dict): # requirement 8
         if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
             suggested.append(temp_dict[keys])
   
-
     return suggested
     
-
-    
-
 
 # def add_new_album(): # requirement 9
 #     return
