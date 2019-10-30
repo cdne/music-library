@@ -3,6 +3,7 @@ from collections import defaultdict
 # read file and place lines in a dictionary
 
 
+
 def read_file():
     d = {}
     with open("file.txt", "r") as file:
@@ -11,6 +12,8 @@ def read_file():
             key, values = items[1], items[:]
             d[str(key)] = values
     return d
+
+
 
 
 def sort_by_genre(temp_dict):  # requirement 2
@@ -57,16 +60,28 @@ def shortest_longest(what_album):  # requireent 4
 # print('Requested album is', shortest_longest('longest'))
 
 
+def artist_albums(temp_dict): #requirement 5
+    # read from user name
+    # itterate over index 0 with string if is in then show all albums
+    get_input = input("Enter the name of the artist: ")
+    artist = []
+    albums_from_artist = []
+    i = 0
+    for key in temp_dict:
+        artist.append([key, temp_dict[key][0]])
+        if get_input in artist[i][1]:
+             albums_from_artist.append(artist[i][0])
+        i += 1
+    
+    return albums_from_artist
 
-# def artist_albums(): #requirement 5
-#     input('artist')
-#     return
-
-
-# def sort_by_album_name(): # requirement 6
-#     input('album name')
-#     return
-
+def sort_by_album_name(temp_dict): # requirement 6
+    get_album_input = input("Enter album name: ")
+    album_details = []
+    for keys in temp_dict:
+        if get_album_input in keys:
+            return temp_dict[keys]
+            
 
 def oldest_album():  # requirement 7.1 oldest album
     dict_from_file = read_file()
@@ -96,6 +111,30 @@ def count_all_albums():  # requirement 7.3 total no. of albums
     dict_from_file = read_file()
     return len(dict_from_file)
 
+def suggested_albums(temp_dict): # requirement 8
+    # TO DO remove input album from created list
+
+
+    get_album_input = input('Enter album name: ')
+
+    get_genre_from_input = ''
+    suggested = []
+    
+    def get_genre():
+        for keys in temp_dict:
+            if get_album_input in keys:
+              return temp_dict[keys][3]
+                             
+    get_genre_from_input = get_genre()
+    for keys in temp_dict:
+       
+        albums_genre = temp_dict[keys][3]
+
+        if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
+            suggested.append(temp_dict[keys])
+  
+    return suggested
+    
 
 # print('Total number of albums: ', count_all_albums())
 
