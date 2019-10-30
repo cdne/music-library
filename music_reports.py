@@ -126,10 +126,7 @@ def count_all_albums():  # requirement 7.3 total no. of albums
 
 def suggested_albums(temp_dict): # requirement 8
     # TO DO remove input album from created list
-
-
     get_album_input = input('Enter album name: ')
-
     get_genre_from_input = ''
     suggested = []
     
@@ -188,9 +185,9 @@ def how_many_given_genre():  # requirement 7.4 how many albums based on genre
 # without exporting
 
 
-def add_new_album(dict_from_file):
-    #global all_albums
-
+def add_new_album():
+    global all_albums
+    dict_from_file = all_albums
     new_album_list = []
     new_album_name = input('Please enter new album name: ')
     new_album_artist = input('Please enter new album artist: ')
@@ -206,18 +203,17 @@ def add_new_album(dict_from_file):
     print('Please be careful, the new album is only saved in this session.'
           ' If you would like to keep teh album in the list for longer, '
           ' please consider exporting the current session library.')
-    # print(dict_from_file)
-    #all_albums[new_album_name] = new_album_list 
+    all_albums = dict_from_file 
     return all_albums
 
 
-# add_new_album()
 
 # requirement 10, needs mistake proof,
 # what if edit and add in the same session
 
 
 def edit_album():
+    global all_albums
     dict_from_file = all_albums
     valid_album_name = False
     while valid_album_name is False:
@@ -247,10 +243,10 @@ def edit_album():
     print('Please be careful, the edited album is only saved in this session.'
           ' If you would like to keep teh album in the list for longer, '
           ' please consider exporting the current session library.')
-    print(dict_from_file)
-    # return
+    all_albums = dict_from_file
+    return all_albums
 
 
-# edit_album()
-
-# def export_new_to_file(): # requirement 11
+def export_new_to_file(all_albums): # requirement 11
+    with open('file.txt', 'w') as file:
+        file.write()

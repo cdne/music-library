@@ -1,17 +1,27 @@
 from music_reports import *
+import os
 
-def print_unsorted():
-    print(add_new_album(all_albums))
-    # print(artist_albums(hold_lines))
-    # print(sort_by_album_name(hold_lines))
-    # print(suggested_albums(all_albums))
+empty_table = '''
+    *               LEMONIFY                 *
+    * Artist * Album * Year * Genre * Length *
+    *                                        *
+    *                                        *
+'''
+print(empty_table)
 
+running = True
+while running is True:
 
-print_unsorted()
-
-
-print(all_albums)
-
-
-# all_albums = read_file()
-#
+    command = input('Input command:')
+    if command == '1':
+        os.system("clear")
+        print(empty_table)
+        add_new_album()
+        export_new_to_file()
+    elif command == '2':
+        print(all_albums)
+    elif command == '3':
+        edit_album()
+    elif command == 'exit()':
+        print('bye')
+        exit()
