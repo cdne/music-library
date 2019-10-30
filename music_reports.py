@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 # read file and place lines in a dictionary
 def read_file():
     d = {}
@@ -9,6 +10,7 @@ def read_file():
             key, values = items[1], items[:]
             d[str(key)] = values
     return d
+
 
 # all albums in a dictionary with values as a list
 # global dictionary because it is used by multiple functions
@@ -20,16 +22,12 @@ def sort_by_genre(temp_dict):  # requirement 2
     new_dict = {}
     for key in temp_dict:
         genre.append([key, temp_dict[key][3]])
-    # print(genre)
     genre.sort(key=lambda x: x[1])
-    # print('sorted by genre', genre)
-    # for i in genre:
-    #     print(f'{temp_dict[i[0]]}\n')
     for i in genre:
         for key in temp_dict:
             if i[1] in temp_dict[key]:
                 new_dict[key] = temp_dict[key]
-    return new_dict   
+    return new_dict
 
 # DONE
 def time_range_album(temp_dict): # requirement 3
@@ -41,13 +39,13 @@ def time_range_album(temp_dict): # requirement 3
         for key in temp_dict:
             if int(temp_dict[key][2]) == i:
                 years.append([key, temp_dict[key][2]])
-            years.sort(key = lambda x: int(x[1]))
+            years.sort(key=lambda x: int(x[1]))
     for i in years:
         for key in temp_dict:
             if i[1] in temp_dict[key]:
                 new_dict[key] = temp_dict[key]
     return new_dict
-   
+
 
 def convert_to_seconds(minsec):  # required in shortest_longest
     list_minutes = []
@@ -59,23 +57,33 @@ def convert_to_seconds(minsec):  # required in shortest_longest
     minutes = ''.join(list_minutes)
     return int(minutes) * 60 + int((minsec[-2:]))
 
-# make input inside function 'shortest' and 'longest'
-def shortest_longest(what_album):  # requireent 4
-    dict_from_file = all_albums
+
+# requirement #4 Find the shortest and longest album
+
+def shortest_longest(criteria):
+    working_dict = all_albums
     albums_list = []
-    for key in dict_from_file:
-        albums_list.append([key, dict_from_file[key][4]])
+    temp_dict = {}
+    short = ''
+    for key in working_dict:
+        albums_list.append([key, working_dict[key][4]])
     for i in albums_list:
         i[1] = convert_to_seconds(i[1])
     albums_list.sort(key=lambda x: x[1])
-    if what_album == 'shortest':
-        return dict_from_file[albums_list[0][0]]
-    elif what_album == 'longest':
-        return dict_from_file[albums_list[-1][0]]
+    if criteria == 'shortest':
+        # short = working_dict[albums_list[0][0]]
+        temp_dict[albums_list[0][0]] = working_dict[albums_list[0][0]]
+        return temp_dict
+    elif criteria == 'longest':
+        # short = working_dict[albums_list[-1][0]]
+        temp_dict[albums_list[-1][0]] = working_dict[albums_list[-1][0]]
+        return temp_dict
 
-# DONE
-def artist_albums(temp_dict): #requirement 5
 
+
+# requirement #5 - List albums based on artist
+
+def artist_albums(temp_dict):
     get_input = input("Enter the name of the artist: ")
     artist = []
     new_dict = {}
@@ -84,52 +92,66 @@ def artist_albums(temp_dict): #requirement 5
         artist.append([key, temp_dict[key][0]])
         if get_input in artist[i][1]:
             new_dict[key] = temp_dict[key]
-        i += 1 
-        
+        i += 1         
     return new_dict
 # DONE
+
 def sort_by_album_name(temp_dict): # requirement 6
+
     get_album_input = input("Enter album name: ")
     new_dict = {}
     for keys in temp_dict:
         if get_album_input in keys:
-            new_dict[keys] = temp_dict[keys]
-            return new_dict           
-# TO DO
-# print all of the same year
-def oldest_album():  # requirement 7.1 oldest album
-    dict_from_file = all_albums
+            return temp_dict[keys]
+
+
+# requirement # 7.1 Print the oldest album
+
+def oldest_album():
+    working_dict = all_albums
     album_years = []
-    for key in dict_from_file:
-        album_years.append([key, dict_from_file[key][2]])
+    temp_dict = {}
+    for key in working_dict:
+        album_years.append([key, working_dict[key][2]])
     album_years.sort(key=lambda x: int(x[1]))
-    return dict_from_file[album_years[0][0]]
+    oldest_year = album_years[0][1]
+    for i in working_dict:
+        if working_dict[i][2] == oldest_year:
+            temp_dict[i] = working_dict[i]
+    return temp_dict
 
 
-def youngest_album():  # requirement 7.2 youngest album
-    dict_from_file = all_albums
+# requirement #7.2 Displays the youngest album
+
+def youngest_album():
+    working_dict = all_albums
     album_years = []
-    for key in dict_from_file:
-        album_years.append([key, dict_from_file[key][2]])
+    temp_dict = {}
+    for key in working_dict:
+        album_years.append([key, working_dict[key][2]])
     album_years.sort(key=lambda x: int(x[1]))
-    return dict_from_file[album_years[-1][0]]
+    temp_dict[album_years[-1][0]] = working_dict[album_years[-1][0]]
+    return temp_dict
 
 
-def count_all_albums():  # requirement 7.3 total no. of albums
+# requirement #7.3 Displays the total no. of albums
+
+def count_all_albums():  
     dict_from_file = all_albums
     return len(dict_from_file)
 
+
 def suggested_albums(temp_dict): # requirement 8
-    # TO DO remove input album from created list
     get_album_input = input('Enter album name: ')
     get_genre_from_input = ''
     suggested = []
+
     new_dict = {}
+
     def get_genre():
         for keys in temp_dict:
             if get_album_input in keys:
-              return temp_dict[keys][3]
-                             
+              return temp_dict[keys][3]                       
     get_genre_from_input = get_genre()
     for keys in temp_dict:
         albums_genre = temp_dict[keys][3]
@@ -140,10 +162,11 @@ def suggested_albums(temp_dict): # requirement 8
     return new_dict
     
 
-# print('Total number of albums: ', count_all_albums())
 
 
-def how_many_given_genre():  # requirement 7.4 how many albums based on genre
+# requirement #7.4 Display the number of albums based on genre
+
+def how_many_given_genre():
     dict_from_file = all_albums
     genres_list = []
     for key in dict_from_file:
@@ -167,9 +190,7 @@ def how_many_given_genre():  # requirement 7.4 how many albums based on genre
     return how_many_albums_by_genre
 
 
-# requirement 9, what if edit and add in the same session,
-# without exporting
-
+# requirement #9 - User can add a new album
 
 def add_new_album():
     global all_albums
@@ -189,22 +210,19 @@ def add_new_album():
     print('Please be careful, the new album is only saved in this session.'
           ' If you would like to keep teh album in the list for longer, '
           ' please consider exporting the current session library.')
-    all_albums = dict_from_file 
+    all_albums = dict_from_file
     return all_albums
 
 
-
-# requirement 10, needs mistake proof,
-# what if edit and add in the same session
-
+# requirement #10 - User can edit an album
 
 def edit_album():
     global all_albums
-    dict_from_file = all_albums
+    dict_edit = all_albums
     valid_album_name = False
     while valid_album_name is False:
         album_to_edit = input('Please name the album you want to edit:')
-        if album_to_edit in dict_from_file:
+        if album_to_edit in dict_edit:
             valid_album_name = True
         elif album_to_edit == 'exit()':
             print('Thanks for using our product. Have a nice day!')
@@ -224,22 +242,23 @@ def edit_album():
     edited_list.append(edited_album_genre)
     edited_album_length = input('Please enter the album length: ')
     edited_list.append(edited_album_length)
-    dict_from_file[edited_album_name] = dict_from_file.pop(album_to_edit)
-    dict_from_file[edited_album_name] = edited_list
-    print('Please be careful, the edited album is only saved in this session.'
-          ' If you would like to keep teh album in the list for longer, '
-          ' please consider exporting the current session library.')
-    all_albums = dict_from_file
+    dict_edit[edited_album_name] = dict_edit.pop(album_to_edit)
+    dict_edit[edited_album_name] = edited_list
+    print('Note: Please be careful, the edited album is only saved in this '
+          'session. If you would like to keep the album in the list for '
+          'longer, please consider exporting the current session library.')
+    all_albums = dict_edit
     return all_albums
 
-# export
-def export_new_to_file():  # requirement 11
+
+# requirement #11 - User can export the current session library
+
+def export_new_to_file():
     global all_albums
     temp_dict = all_albums
     list_of_albums = []
     for value in temp_dict.values():
         list_of_albums.append(','.join(value))
-    print(list_of_albums)
     with open("file.txt", 'w') as file:
         for i in list_of_albums:
             file.write(i + '\n')
