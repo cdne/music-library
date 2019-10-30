@@ -52,7 +52,7 @@ def convert_to_seconds(minsec):  # required in shortest_longest
     minutes = ''.join(list_minutes)
     return int(minutes) * 60 + int((minsec[-2:]))
 
-
+# make input inside function 'shortest' and 'longest'
 def shortest_longest(what_album):  # requireent 4
     dict_from_file = all_albums
     albums_list = []
@@ -247,6 +247,13 @@ def edit_album():
     return all_albums
 
 
-def export_new_to_file(all_albums): # requirement 11
-    with open('file.txt', 'w') as file:
-        file.write()
+def export_new_to_file():  # requirement 11
+    global all_albums
+    temp_dict = all_albums
+    list_of_albums = []
+    for value in temp_dict.values():
+        list_of_albums.append(','.join(value))
+    print(list_of_albums)
+    with open("file.txt", 'w') as file:
+        for i in list_of_albums:
+            file.write(i + '\n')
