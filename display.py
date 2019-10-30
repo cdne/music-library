@@ -82,6 +82,7 @@ def main():
     while running is True:
 
         print_formatted(all_albums)
+
         print('1. View all albums.')
         print('2. Arrange all albums by genre.')
         print('3. Display albums in time range (Ex: 1967 - 1980).')
@@ -112,17 +113,17 @@ def main():
             os.system("clear")
         elif command == '4':
             os.system("clear")
-            print(shortest_longest(all_albums))
+            print_formatted(shortest_longest(all_albums))
             input("Press enter to continue...")
             os.system("clear")
         elif command == '5':
             os.system("clear")
-            print(artist_albums(all_albums))
+            print_formatted(artist_albums(all_albums))
             input("Press enter to continue...")
             os.system("clear")
         elif command == '6':
             os.system("clear")
-            print(sort_by_album_name(all_albums))
+            print_formatted(sort_by_album_name(all_albums))
             input("Press enter to continue...")
             os.system("clear")
         elif command == '7':
@@ -133,7 +134,7 @@ def main():
         elif command == '8':
             os.system("clear")
             print(all_albums)
-            print(suggested_albums(all_albums))
+            print_formatted(suggested_albums(all_albums))
             input("Press enter to continue...")
             os.system("clear")
         elif command == '9':
@@ -157,3 +158,4 @@ def main():
 
 
 main()
+
