@@ -77,6 +77,7 @@ while running is True:
 
     command = input('Input command:')
 
+
     if command == '1':
         os.system("clear")
         print_formatted(all_albums)
@@ -136,3 +137,4 @@ while running is True:
     elif command == '12':
         print('bye')
         exit()
+

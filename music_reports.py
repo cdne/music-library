@@ -122,7 +122,7 @@ def count_all_albums():  # requirement 7.3 total no. of albums
     return len(dict_from_file)
 
 def suggested_albums(temp_dict): # requirement 8
-    # TO DO remove input album from created list
+
     get_album_input = input('Enter album name: ')
     get_genre_from_input = ''
     suggested = []
