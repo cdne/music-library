@@ -2,7 +2,6 @@ from collections import defaultdict
 
 # read file and place lines in a dictionary
 
-
 def read_file():
     d = {}
     with open("file.txt", "r") as file:
@@ -12,21 +11,47 @@ def read_file():
             d[str(key)] = values
     return d
 
+# all albums in a dictionary with values as a list
+# global dictionary because it is used by multiple functions
+
+all_albums = read_file()
+
 
 def sort_by_genre(temp_dict):  # requirement 2
     genre = []
+    new_dict = {}
     for key in temp_dict:
         genre.append([key, temp_dict[key][3]])
-    print(genre)
+    # print(genre)
     genre.sort(key=lambda x: x[1])
-    print('sorted by genre', genre)
+    # print('sorted by genre', genre)
+    # for i in genre:
+    #     print(f'{temp_dict[i[0]]}\n')
     for i in genre:
-        print(f'{temp_dict[i[0]]}\n')
+        for key in temp_dict:
+            if i[1] in temp_dict[key]:
+                new_dict[key] = temp_dict[key]
+    return new_dict   
 
-# def time_range_album(): # requirement 3
-#     input('')
-#     return
 
+# TO DO
+# output all values in list
+def time_range_album(temp_dict): # requirement 3
+    x = int(input("Please insert a starting year: "))
+    y = int(input("Please insert an ending year: "))
+    years = []
+    new_dict = {}
+    for i in range(x, y):
+        for key in temp_dict:
+            if int(temp_dict[key][2]) == i:
+                years.append([key, temp_dict[key][2]])
+            years.sort(key = lambda x: int(x[1]))
+    for i in years:
+        for key in temp_dict:
+            if i[1] in temp_dict[key]:
+                new_dict[key] = temp_dict[key]
+    return new_dict
+   
 
 def convert_to_seconds(minsec):  # required in shortest_longest
     list_minutes = []
@@ -38,9 +63,9 @@ def convert_to_seconds(minsec):  # required in shortest_longest
     minutes = ''.join(list_minutes)
     return int(minutes) * 60 + int((minsec[-2:]))
 
-
+# make input inside function 'shortest' and 'longest'
 def shortest_longest(what_album):  # requireent 4
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     albums_list = []
     for key in dict_from_file:
         albums_list.append([key, dict_from_file[key][4]])
@@ -52,24 +77,30 @@ def shortest_longest(what_album):  # requireent 4
     elif what_album == 'longest':
         return dict_from_file[albums_list[-1][0]]
 
+def artist_albums(temp_dict): #requirement 5
 
-# print('Requested album is', shortest_longest('shortest'))
-# print('Requested album is', shortest_longest('longest'))
+    get_input = input("Enter the name of the artist: ")
+    artist = []
+    albums_from_artist = []
+    i = 0
+    for key in temp_dict:
+        artist.append([key, temp_dict[key][0]])
+        if get_input in artist[i][1]:
+             albums_from_artist.append(temp_dict[key])
+        i += 1 
+    return albums_from_artist
 
-
-
-# def artist_albums(): #requirement 5
-#     input('artist')
-#     return
-
-
-# def sort_by_album_name(): # requirement 6
-#     input('album name')
-#     return
-
-
+def sort_by_album_name(temp_dict): # requirement 6
+    get_album_input = input("Enter album name: ")
+    album_details = []
+    for keys in temp_dict:
+        if get_album_input in keys:
+            return temp_dict[keys]
+            
+# TO DO
+# print all of the same year
 def oldest_album():  # requirement 7.1 oldest album
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     album_years = []
     for key in dict_from_file:
         album_years.append([key, dict_from_file[key][2]])
@@ -77,11 +108,8 @@ def oldest_album():  # requirement 7.1 oldest album
     return dict_from_file[album_years[0][0]]
 
 
-# print('The oldest album is: ', oldest_album())
-
-
 def youngest_album():  # requirement 7.2 youngest album
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     album_years = []
     for key in dict_from_file:
         album_years.append([key, dict_from_file[key][2]])
@@ -89,19 +117,37 @@ def youngest_album():  # requirement 7.2 youngest album
     return dict_from_file[album_years[-1][0]]
 
 
-# print('The youngest album is: ', youngest_album())
-
-
 def count_all_albums():  # requirement 7.3 total no. of albums
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     return len(dict_from_file)
 
+def suggested_albums(temp_dict): # requirement 8
+
+    get_album_input = input('Enter album name: ')
+    get_genre_from_input = ''
+    suggested = []
+    
+    def get_genre():
+        for keys in temp_dict:
+            if get_album_input in keys:
+              return temp_dict[keys][3]
+                             
+    get_genre_from_input = get_genre()
+    for keys in temp_dict:
+       
+        albums_genre = temp_dict[keys][3]
+
+        if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
+            suggested.append(temp_dict[keys])
+  
+    return suggested
+    
 
 # print('Total number of albums: ', count_all_albums())
 
 
 def how_many_given_genre():  # requirement 7.4 how many albums based on genre
-    dict_from_file = read_file()
+    dict_from_file = all_albums
     genres_list = []
     for key in dict_from_file:
         genres_list.append(dict_from_file[key][3])
@@ -124,20 +170,13 @@ def how_many_given_genre():  # requirement 7.4 how many albums based on genre
     return how_many_albums_by_genre
 
 
-# print('Your selected genre returned ', how_many_given_genre())
-
-# def suggested_albums(): # requirement 8
-#     input('album name')
-#     # suggest albums with the same genre
-#     return
-
-
 # requirement 9, what if edit and add in the same session,
 # without exporting
 
 
 def add_new_album():
-    dict_from_file = read_file()
+    global all_albums
+    dict_from_file = all_albums
     new_album_list = []
     new_album_name = input('Please enter new album name: ')
     new_album_artist = input('Please enter new album artist: ')
@@ -153,18 +192,18 @@ def add_new_album():
     print('Please be careful, the new album is only saved in this session.'
           ' If you would like to keep teh album in the list for longer, '
           ' please consider exporting the current session library.')
-    print(dict_from_file)
-    # return
+    all_albums = dict_from_file 
+    return all_albums
 
 
-# add_new_album()
 
 # requirement 10, needs mistake proof,
 # what if edit and add in the same session
 
 
 def edit_album():
-    dict_from_file = read_file()
+    global all_albums
+    dict_from_file = all_albums
     valid_album_name = False
     while valid_album_name is False:
         album_to_edit = input('Please name the album you want to edit:')
@@ -193,14 +232,10 @@ def edit_album():
     print('Please be careful, the edited album is only saved in this session.'
           ' If you would like to keep teh album in the list for longer, '
           ' please consider exporting the current session library.')
-    print(dict_from_file)
-    # return
+    all_albums = dict_from_file
+    return all_albums
 
-
-# edit_album()
-
-all_albums = read_file()
-
+# export
 def export_new_to_file():  # requirement 11
     global all_albums
     temp_dict = all_albums
@@ -208,47 +243,6 @@ def export_new_to_file():  # requirement 11
     for value in temp_dict.values():
         list_of_albums.append(','.join(value))
     print(list_of_albums)
-    with open("text2.txt", 'w') as file:
+    with open("file.txt", 'w') as file:
         for i in list_of_albums:
             file.write(i + '\n')
-
-# export_new_to_file()
-
-def print_formatted():
-    SPACES_IN_FORMATTING = 20
-    TOP_LINE = ['Artist', 'Album', 'Year', 'Genre', 'Length']
-    max_character_length = 0
-    max_artist_length = 0
-    max_album_length = 0
-    max_year_length = 0
-    max_genre_length = 0
-    max_time_length = 0
-    for value in all_albums.values():
-        length = 0
-        for i in value:
-            length += len(i)
-        if length > max_character_length:
-            max_character_length = length
-        if len(value[0]) > max_artist_length:
-            max_artist_length = len(value[0])
-        if len(value[1]) > max_album_length:
-            max_album_length = len(value[1])
-        if len(value[2]) > max_year_length:
-            max_year_length = len(value[2])
-        if len(value[3]) > max_genre_length:
-            max_genre_length = len(value[3])
-        if len(value[4]) > max_time_length:
-            max_time_length = len(value[4])
-    print(max_character_length)
-    line_length = max_character_length + SPACES_IN_FORMATTING
-    print('*' * line_length)
-    print('{:{align}{width}}'.format('LEMONFY', align='^', width=str(line_length)))
-    print('*' * line_length)
-    print(f'%{max_artist_length + 2}s' % TOP_LINE[0], f'%{max_album_length + 2}s' % TOP_LINE[1], f'%{max_year_length + 2}s' % TOP_LINE[2], f'%{max_genre_length + 2}s' % TOP_LINE[3], f'%{max_time_length + 2}s' % TOP_LINE[4])
-    print('*' * line_length)
-    for j in all_albums.values():
-        print(f'%{max_artist_length + 2}s' % j[0], f'%{max_album_length + 2}s' % j[1], f'%{max_year_length + 2}s' % j[2], f'%{max_genre_length + 2}s' % j[3], f'%{max_time_length + 2}s' % j[4])
-    print('*' * line_length)
-
-
-print_formatted()
