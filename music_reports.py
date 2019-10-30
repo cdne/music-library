@@ -157,7 +157,7 @@ def add_new_album():
     # return
 
 
-add_new_album()
+# add_new_album()
 
 # requirement 10, needs mistake proof,
 # what if edit and add in the same session
@@ -199,4 +199,56 @@ def edit_album():
 
 # edit_album()
 
-# def export_new_to_file(): # requirement 11
+all_albums = read_file()
+
+def export_new_to_file():  # requirement 11
+    global all_albums
+    temp_dict = all_albums
+    list_of_albums = []
+    for value in temp_dict.values():
+        list_of_albums.append(','.join(value))
+    print(list_of_albums)
+    with open("text2.txt", 'w') as file:
+        for i in list_of_albums:
+            file.write(i + '\n')
+
+# export_new_to_file()
+
+def print_formatted():
+    SPACES_IN_FORMATTING = 20
+    TOP_LINE = ['Artist', 'Album', 'Year', 'Genre', 'Length']
+    max_character_length = 0
+    max_artist_length = 0
+    max_album_length = 0
+    max_year_length = 0
+    max_genre_length = 0
+    max_time_length = 0
+    for value in all_albums.values():
+        length = 0
+        for i in value:
+            length += len(i)
+        if length > max_character_length:
+            max_character_length = length
+        if len(value[0]) > max_artist_length:
+            max_artist_length = len(value[0])
+        if len(value[1]) > max_album_length:
+            max_album_length = len(value[1])
+        if len(value[2]) > max_year_length:
+            max_year_length = len(value[2])
+        if len(value[3]) > max_genre_length:
+            max_genre_length = len(value[3])
+        if len(value[4]) > max_time_length:
+            max_time_length = len(value[4])
+    print(max_character_length)
+    line_length = max_character_length + SPACES_IN_FORMATTING
+    print('*' * line_length)
+    print('{:{align}{width}}'.format('LEMONFY', align='^', width=str(line_length)))
+    print('*' * line_length)
+    print(f'%{max_artist_length + 2}s' % TOP_LINE[0], f'%{max_album_length + 2}s' % TOP_LINE[1], f'%{max_year_length + 2}s' % TOP_LINE[2], f'%{max_genre_length + 2}s' % TOP_LINE[3], f'%{max_time_length + 2}s' % TOP_LINE[4])
+    print('*' * line_length)
+    for j in all_albums.values():
+        print(f'%{max_artist_length + 2}s' % j[0], f'%{max_album_length + 2}s' % j[1], f'%{max_year_length + 2}s' % j[2], f'%{max_genre_length + 2}s' % j[3], f'%{max_time_length + 2}s' % j[4])
+    print('*' * line_length)
+
+
+print_formatted()
