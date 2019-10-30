@@ -77,7 +77,7 @@ def sort_by_album_name(temp_dict): # requirement 6
 
 
 def suggested_albums(temp_dict): # requirement 8
-    # TO DO remove input album from created list
+    ## TO DO remove input album from created list
 
     get_album_input = input('Enter album name: ')
 
