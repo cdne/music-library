@@ -13,7 +13,7 @@ def read_file():
 # all albums in a dictionary with values as a list
 # global dictionary because it is used by multiple functions
 all_albums = read_file()
-
+#
 # DONE
 def sort_by_genre(temp_dict):  # requirement 2
     genre = []
