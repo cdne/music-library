@@ -113,7 +113,7 @@ while running is True:
         input("Press enter to continue...")
         os.system("clear")   
     elif command == '8':
-        
+        #
         print_formatted(suggested_albums(all_albums))
         input("Press enter to continue...")
         os.system("clear")       
