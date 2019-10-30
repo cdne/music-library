@@ -47,7 +47,7 @@ def print_formatted(dictionary):
             max_genre_length = len(value[3])
         if len(value[4]) > max_time_length:
             max_time_length = len(value[4])
-    print(max_character_length)
+
     line_length = max_character_length + SPACES_IN_FORMATTING
     print('*' * line_length)
     print('{:{align}{width}}'.format('LEMONFY', align='^', width=str(line_length)))
@@ -88,23 +88,23 @@ while running is True:
         input("Press enter to continue...")
         os.system("clear")
     elif command == '3':
-        os.system("clear")
+        
         print_formatted(time_range_album(all_albums))
         input("Press enter to continue...")
         os.system("clear")
     elif command == '4':
-        os.system("clear")
+        
         print(shortest_longest(all_albums))
         input("Press enter to continue...")
         os.system("clear")
     elif command == '5':
-        os.system("clear")
-        print(artist_albums(all_albums))
+        
+        print_formatted(artist_albums(all_albums))
         input("Press enter to continue...")
         os.system("clear")
     elif command == '6':
-        os.system("clear")
-        print(sort_by_album_name(all_albums))
+        
+        print_formatted(sort_by_album_name(all_albums))
         input("Press enter to continue...")
         os.system("clear")
     elif command == '7':
@@ -113,9 +113,8 @@ while running is True:
         input("Press enter to continue...")
         os.system("clear")   
     elif command == '8':
-        os.system("clear")
-        print(all_albums)
-        print(suggested_albums(all_albums))
+        
+        print_formatted(suggested_albums(all_albums))
         input("Press enter to continue...")
         os.system("clear")       
     elif command == '9':
