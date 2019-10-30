@@ -7,6 +7,7 @@ os.system('clear')
 def print_report():
     report_running = True
     while report_running is True:
+        os.system('clear')
         print_formatted(all_albums)
         print('''
 1. The shortest album in the library.
@@ -21,22 +22,29 @@ def print_report():
         if statistic == '1':
             print_formatted(shortest_longest('shortest'))
             input("Press enter to continue...")
+            os.system('clear')
         elif statistic == '2':
             print_formatted(shortest_longest('longest'))
             input("Press enter to continue...")
+            os.system('clear')
         elif statistic == '3':
             print_formatted(oldest_album())
             input("Press enter to continue...")
+            os.system('clear')
         elif statistic == '4':
             print_formatted(youngest_album())
             input("Press enter to continue...")
+            os.system('clear')
         elif statistic == '5':
             print(count_all_albums())
             input("Press enter to continue...")
+            os.system('clear')
         elif statistic == '6':
             print(how_many_given_genre())
             input("Press enter to continue...")
+            os.system('clear')
         elif statistic == '7':
+            os.system('clear')
             main()
 
 
@@ -67,7 +75,7 @@ def print_formatted(dictionary):
             max_time_length = len(value[4])
     line_length = max_character_length + SPACES_IN_FORMATTING
     print('*' * line_length)
-    print('{:{align}{width}}'.format('LEMONFY', align='^', width=str(line_length)))
+    print('{:{align}{width}}'.format('LEMONIFY', align='^', width=str(line_length)))
     print('*' * line_length)
     print(f'%{max_artist_length + 2}s' % TOP_LINE[0], f'%{max_album_length + 2}s' % TOP_LINE[1], f'%{max_year_length + 2}s' % TOP_LINE[2], f'%{max_genre_length + 2}s' % TOP_LINE[3], f'%{max_time_length + 2}s' % TOP_LINE[4])
     print('*' * line_length)
@@ -104,23 +112,22 @@ def main():
             input("Press enter to continue...")
             os.system("clear")
         elif command == '3':
-            os.system("clear")
+            # os.system("clear")
             print_formatted(time_range_album(all_albums))
             input("Press enter to continue...")
             os.system("clear")
         elif command == '4':
             os.system("clear")
-            # TO DO CHECK
-            print(shortest_longest(all_albums))
+            print_formatted(shortest_longest())
             input("Press enter to continue...")
             os.system("clear")
         elif command == '5':
-            os.system("clear")
+            # os.system("clear")
             print_formatted(artist_albums(all_albums))
             input("Press enter to continue...")
             os.system("clear")
         elif command == '6':
-            os.system("clear")
+            # os.system("clear")
             print_formatted(sort_by_album_name(all_albums))
             input("Press enter to continue...")
             os.system("clear")
@@ -130,18 +137,18 @@ def main():
             input("Press enter to continue...")
             os.system("clear")
         elif command == '8':
-            os.system("clear")
+            # os.system("clear")
             print_formatted(suggested_albums(all_albums))
             input("Press enter to continue...")
             os.system("clear")
         elif command == '9':
-            os.system("clear")
-            print(add_new_album())
+            # os.system("clear")
+            print_formatted(add_new_album())
             input("Press enter to continue...")
             os.system("clear")
         elif command == '10':
-            os.system("clear")
-            print(edit_album())
+            # os.system("clear")
+            print_formatted(edit_album())
             input("Press enter to continue...")
             os.system("clear")
         elif command == '11':

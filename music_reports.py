@@ -1,4 +1,5 @@
 from collections import defaultdict
+import os
 
 
 # read file and place lines in a dictionary
@@ -18,8 +19,10 @@ def read_file():
 
 all_albums = read_file()
 
+# requirement #2 - Arrange the albums by genre
 
-def sort_by_genre(temp_dict):  # requirement 2
+
+def sort_by_genre(temp_dict):
     genre = []
     new_dict = {}
     for key in temp_dict:
@@ -29,14 +32,17 @@ def sort_by_genre(temp_dict):  # requirement 2
         for key in temp_dict:
             if i[1] in temp_dict[key]:
                 new_dict[key] = temp_dict[key]
-    return new_dict
+    all_albums = new_dict
+    return all_albums
 
 
-# TO DO
-# output all values in list
-def time_range_album(temp_dict): # requirement 3
+# requirement #3 Find albums inside a user given time range
+
+def time_range_album(temp_dict):
     x = int(input("Please insert a starting year: "))
     y = int(input("Please insert an ending year: "))
+    os.system('clear')
+    print(f'Displaying albums that came out between {x} and {y}.')
     years = []
     new_dict = {}
     for i in range(x, y):
@@ -51,7 +57,9 @@ def time_range_album(temp_dict): # requirement 3
     return new_dict
 
 
-def convert_to_seconds(minsec):  # required in shortest_longest
+# function required in another function, shortest_longest
+
+def convert_to_seconds(minsec):
     list_minutes = []
     for i in minsec:
         if i != ':':
@@ -64,7 +72,15 @@ def convert_to_seconds(minsec):  # required in shortest_longest
 
 # requirement #4 Find the shortest and longest album
 
-def shortest_longest(criteria):
+def shortest_longest(criteria=None):
+    if criteria is None:
+        choice = input('Please select 1 for shortest or 2 for longest: ')
+        os.system('clear')
+        print(f'Displaying album based on choice - "{choice}".')
+        if choice == '1':
+            criteria = 'shortest'
+        elif choice == '2':
+            criteria = 'longest'
     working_dict = all_albums
     albums_list = []
     temp_dict = {}
@@ -75,11 +91,9 @@ def shortest_longest(criteria):
         i[1] = convert_to_seconds(i[1])
     albums_list.sort(key=lambda x: x[1])
     if criteria == 'shortest':
-        # short = working_dict[albums_list[0][0]]
         temp_dict[albums_list[0][0]] = working_dict[albums_list[0][0]]
         return temp_dict
     elif criteria == 'longest':
-        # short = working_dict[albums_list[-1][0]]
         temp_dict[albums_list[-1][0]] = working_dict[albums_list[-1][0]]
         return temp_dict
 
@@ -87,25 +101,31 @@ def shortest_longest(criteria):
 # requirement #5 - List albums based on artist
 
 def artist_albums(temp_dict):
-
     get_input = input("Enter the name of the artist: ")
+    os.system('clear')
+    print(f'Displaying albums by {get_input}')
     artist = []
-    albums_from_artist = []
+    new_dict = {}
     i = 0
     for key in temp_dict:
         artist.append([key, temp_dict[key][0]])
         if get_input in artist[i][1]:
-             albums_from_artist.append(temp_dict[key])
-        i += 1 
-    return albums_from_artist
+            new_dict[key] = temp_dict[key]
+        i += 1
+    return new_dict
 
 
-def sort_by_album_name(temp_dict):  # requirement 6
+# requirement #6 - After the user inputs an album name, print it
+
+def sort_by_album_name(temp_dict):
     get_album_input = input("Enter album name: ")
-    album_details = []
+    os.system('clear')
+    print(f'Displaying results as requested album "{get_album_input}".')
+    new_dict = {}
     for keys in temp_dict:
         if get_album_input in keys:
-            return temp_dict[keys]
+            new_dict[keys] = temp_dict[keys]
+            return new_dict
 
 
 # requirement # 7.1 Print the oldest album
@@ -139,25 +159,9 @@ def youngest_album():
 
 # requirement #7.3 Displays the total no. of albums
 
-def count_all_albums():  
+def count_all_albums():
     dict_from_file = all_albums
-    return len(dict_from_file)
-
-
-def suggested_albums(temp_dict): # requirement 8
-    get_album_input = input('Enter album name: ')
-    get_genre_from_input = ''
-    suggested = []
-    def get_genre():
-        for keys in temp_dict:
-            if get_album_input in keys:
-              return temp_dict[keys][3]                       
-    get_genre_from_input = get_genre()
-    for keys in temp_dict:   
-        albums_genre = temp_dict[keys][3]
-        if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
-            suggested.append(temp_dict[keys])
-    return suggested
+    return f'The total number of albums in the library is {len(dict_from_file)}.'
 
 
 # requirement #7.4 Display the number of albums based on genre
@@ -183,7 +187,30 @@ def how_many_given_genre():
     for key in dict_from_file:
         if selected_genre in dict_from_file[key]:
             how_many_albums_by_genre += 1
-    return how_many_albums_by_genre
+    return f'The number of {selected_genre} albums is {how_many_albums_by_genre}.'
+
+
+# requirement #8 - suggested albums based on user input album
+
+def suggested_albums(temp_dict):
+    get_album_input = input('Enter album name: ')
+    os.system('clear')
+    print(f'Displaying suggestions based on given album "{get_album_input}".')
+    get_genre_from_input = ''
+    suggested = []
+    new_dict = {}
+
+    def get_genre():
+        for keys in temp_dict:
+            if get_album_input in keys:
+                return temp_dict[keys][3]
+
+    get_genre_from_input = get_genre()
+    for keys in temp_dict:
+        albums_genre = temp_dict[keys][3]
+        if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
+            new_dict[keys] = temp_dict[keys]
+    return new_dict
 
 
 # requirement #9 - User can add a new album
@@ -203,9 +230,9 @@ def add_new_album():
     new_album_length = input('Please enter the album length: ')
     new_album_list.append(new_album_length)
     dict_from_file[new_album_name] = new_album_list
-    print('Please be careful, the new album is only saved in this session.'
-          ' If you would like to keep teh album in the list for longer, '
-          ' please consider exporting the current session library.')
+    print('Note: Please be careful, the new album is only saved in this '
+          'session. If you would like to keep teh album in the list for '
+          'longer, please consider exporting the current session library.')
     all_albums = dict_from_file
     return all_albums
 
