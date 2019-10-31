@@ -367,7 +367,13 @@ def edit_album():
     edited_album_length = time_validator()
 
     edited_list.append(edited_album_length)
-    dict_edit[t_edited_album_name] = dict_edit.pop(album_to_edit)
+    try:
+        if album_to_edit[0] in 'abcdefghijklmnopqrstuvxzyw':
+            dict_edit[t_edited_album_name] = dict_edit.pop(album_to_edit)
+        else:
+            dict_edit[t_edited_album_name] = dict_edit.pop(t_album_to_edit)
+    except IndexError:
+        dict_edit[t_edited_album_name] = dict_edit.pop(t_album_to_edit)
     dict_edit[t_edited_album_name] = edited_list
     print('Note: Please be careful, the edited album is only saved in this '
           'session. If you would like to keep the album in the list for '
