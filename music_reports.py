@@ -1,4 +1,3 @@
-from collections import defaultdict
 import os
 
 
@@ -276,7 +275,15 @@ def add_new_album():
     global all_albums
     dict_addition = all_albums
     new_album_list = []
-    new_album_name = input('Please enter new album name: ')
+    albums_list = [i.title() for i in dict_addition.keys()]
+    valid_album_name = False
+    while valid_album_name is False:
+        new_album_name = input('Please name the album you want to add: ')
+        t_new_album_name = new_album_name.title()
+        if t_new_album_name in albums_list:
+            print('The library already has that album.')
+        else:
+            valid_album_name = True
     t_new_album_name = new_album_name.title()
     new_album_artist = input('Please enter new album artist: ')
     t_new_album_artist = new_album_artist.title()
@@ -308,7 +315,7 @@ def add_new_album():
 def edit_album():
     global all_albums
     dict_edit = all_albums
-    albums_list = [i for i in dict_edit.keys()]
+    albums_list = [i.title() for i in dict_edit.keys()]
     valid_album_name = False
     while valid_album_name is False:
         album_to_edit = input('Please name the album you want to edit: ')
@@ -340,7 +347,7 @@ def edit_album():
     edited_album_length = time_validator()
 
     edited_list.append(edited_album_length)
-    dict_edit[t_edited_album_name] = dict_edit.pop(t_album_to_edit)
+    dict_edit[t_edited_album_name] = dict_edit.pop(album_to_edit)
     dict_edit[t_edited_album_name] = edited_list
     print('Note: Please be careful, the edited album is only saved in this '
           'session. If you would like to keep the album in the list for '
