@@ -41,7 +41,7 @@ def sort_by_genre(temp_dict):
 def time_range_album(temp_dict):
     x = int(input("Please insert a starting year: "))
     y = int(input("Please insert an ending year: "))
-    os.system('clear')
+    # os.system('clear')
     print(f'Displaying albums that came out between {x} and {y}.')
     years = []
     new_dict = {}
@@ -75,7 +75,7 @@ def convert_to_seconds(minsec):
 def shortest_longest(criteria=None):
     if criteria is None:
         choice = input('Please select 1 for shortest or 2 for longest: ')
-        os.system('clear')
+        # os.system('clear')
         print(f'Displaying album based on choice - "{choice}".')
         if choice == '1':
             criteria = 'shortest'
@@ -213,27 +213,61 @@ def suggested_albums(temp_dict):
     return new_dict
 
 
+# time validator function required in the next functions
+
+def time_validator():
+    valid_time = False
+    while valid_time is False:
+        time_string = input('Please enter the album length: ')
+        if len(time_string) < 4:
+            print('Invalid time. Input too short.')
+            valid_time = False
+            continue
+        if len(time_string) > 3 and time_string[-3] != ':':
+            print('Invalid time format. Must have : to delimit seconds eg: 56:22, 42:00.')
+            valid_time = False
+            continue
+        temp_time = time_string.replace(':', '', 1)
+        if temp_time.isdigit():
+            valid_time = True
+            continue
+        if not temp_time.isdigit():
+            print('Invalid time. Uncertain digits. Please input delimited digits eg: 56:22, 42:00')
+            valid_time = False
+            continue
+    return time_string
+
+
 # requirement #9 - User can add a new album
 
 def add_new_album():
     global all_albums
-    dict_from_file = all_albums
+    dict_addition = all_albums
     new_album_list = []
     new_album_name = input('Please enter new album name: ')
+    t_new_album_name = new_album_name.title()
     new_album_artist = input('Please enter new album artist: ')
-    new_album_list.append(new_album_artist)
-    new_album_list.append(new_album_name)
-    new_album_year = input('Please enter the album year: ')
+    t_new_album_artist = new_album_artist.title()
+    new_album_list.append(t_new_album_artist)
+    new_album_list.append(t_new_album_name)
+    valid_year = False
+    while valid_year is False:
+        new_album_year = input('Please enter the album year: ')
+        if new_album_year.isdigit():
+            valid_year = True
+        else:
+            print('The year must be a valid number (integer).')
     new_album_list.append(new_album_year)
     new_album_genre = input('Please enter the album genre: ')
-    new_album_list.append(new_album_genre)
-    new_album_length = input('Please enter the album length: ')
+    l_new_album_genre = new_album_genre.lower()
+    new_album_list.append(l_new_album_genre)
+    new_album_length = time_validator()
     new_album_list.append(new_album_length)
-    dict_from_file[new_album_name] = new_album_list
+    dict_addition[t_new_album_name] = new_album_list
     print('Note: Please be careful, the new album is only saved in this '
           'session. If you would like to keep teh album in the list for '
           'longer, please consider exporting the current session library.')
-    all_albums = dict_from_file
+    all_albums = dict_addition
     return all_albums
 
 
@@ -242,31 +276,40 @@ def add_new_album():
 def edit_album():
     global all_albums
     dict_edit = all_albums
+    albums_list = [i for i in dict_edit.keys()]
     valid_album_name = False
     while valid_album_name is False:
-        album_to_edit = input('Please name the album you want to edit:')
-        if album_to_edit in dict_edit:
+        album_to_edit = input('Please name the album you want to edit: ')
+        t_album_to_edit = album_to_edit.title()
+        if t_album_to_edit in albums_list:
             valid_album_name = True
-        elif album_to_edit == 'exit()':
-            print('Thanks for using our product. Have a nice day!')
-            exit()
         else:
             print('There are no albums with this name in the music library.'
-                  ' Please select another album or type "exit()" to quit '
-                  'the program.')
+                  ' Please select another album.')
     edited_list = []
     edited_album_name = input('Please enter new album name: ')
+    t_edited_album_name = edited_album_name.title()
     edited_album_artist = input('Please enter the artist: ')
-    edited_list.append(edited_album_artist)
-    edited_list.append(edited_album_name)
-    edited_album_year = input('Please enter the album year: ')
+    t_edited_album_artist = edited_album_artist.title()
+    edited_list.append(t_edited_album_artist)
+    edited_list.append(t_edited_album_name)
+    valid_year = False
+    while valid_year is False:
+        edited_album_year = input('Please enter the album year: ')
+        if edited_album_year.isdigit():
+            valid_year = True
+        else:
+            print('The year must be a valid number (integer).')
     edited_list.append(edited_album_year)
     edited_album_genre = input('Please enter the album genre: ')
-    edited_list.append(edited_album_genre)
-    edited_album_length = input('Please enter the album length: ')
+    l_edited_album_genre = edited_album_genre.lower()
+    edited_list.append(l_edited_album_genre)
+
+    edited_album_length = time_validator()
+
     edited_list.append(edited_album_length)
-    dict_edit[edited_album_name] = dict_edit.pop(album_to_edit)
-    dict_edit[edited_album_name] = edited_list
+    dict_edit[t_edited_album_name] = dict_edit.pop(t_album_to_edit)
+    dict_edit[t_edited_album_name] = edited_list
     print('Note: Please be careful, the edited album is only saved in this '
           'session. If you would like to keep the album in the list for '
           'longer, please consider exporting the current session library.')

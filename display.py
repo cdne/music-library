@@ -102,12 +102,12 @@ def main():
         print('12. Exit.')
         command = input('Input command:')
         if command == '1':
-            os.system("clear")
+            # os.system("clear")
             print_formatted(all_albums)
             input("Press enter to continue...")
             os.system("clear")
         elif command == '2':
-            os.system("clear")
+            # os.system("clear")
             print_formatted(sort_by_genre(all_albums))
             input("Press enter to continue...")
             os.system("clear")
@@ -161,6 +161,8 @@ def main():
         elif command == '12':
             print('Thank you for using Lemonify, have a wonderful day.')
             exit()
+        else:
+            os.system('clear')
 
 
 main()
