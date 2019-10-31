@@ -13,7 +13,7 @@ def print_report():
 1. The shortest album in the library.
 2. The longest album in the library.
 3. The oldest album in the library.
-4. The youngest album in the library.
+4. The newest album in the library.
 5. The total number of albums in the library.
 6. The number of albums based on a given genre.
 7. Back to main menu.

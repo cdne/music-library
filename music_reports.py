@@ -87,13 +87,19 @@ def convert_to_seconds(minsec):
 
 def shortest_longest(criteria=None):
     if criteria is None:
-        choice = input('Please select 1 for shortest or 2 for longest: ')
-        # os.system('clear')
-        print(f'Displaying album based on choice - "{choice}".')
-        if choice == '1':
-            criteria = 'shortest'
-        elif choice == '2':
-            criteria = 'longest'
+        valid_choice = False
+        while valid_choice is False:
+            choice = input('Please select 1 for shortest or 2 for longest: ')
+            # os.system('clear')
+            if choice == '1':
+                criteria = 'shortest'
+                valid_choice = True
+            elif choice == '2':
+                criteria = 'longest'
+                valid_choice = True
+            else:
+                valid_choice = False
+                print('Invalid choice.')
     working_dict = all_albums
     albums_list = []
     temp_dict = {}
@@ -114,15 +120,21 @@ def shortest_longest(criteria=None):
 # requirement #5 - List albums based on artist
 
 def artist_albums(temp_dict):
-    get_input = input("Enter the name of the artist: ")
-    os.system('clear')
+    artist_list = [i[0].title() for i in temp_dict.values()]
+    get_input = input("Enter the name of the artist: ").title()
+    if get_input == '':
+        return {'Invalid Choice': ['Invalid choice.', 'Invalid choice.', '0000', 'Invalid choice.', '00:00']}
+    if get_input not in artist_list:
+        return {'Invalid Choice': ['Invalid choice.', 'Invalid choice.', '0000', 'Invalid choice.', '00:00']}
     print(f'Displaying albums by {get_input}')
     artist = []
     new_dict = {}
     i = 0
     for key in temp_dict:
         artist.append([key, temp_dict[key][0]])
-        if get_input in artist[i][1]:
+        if get_input == artist[i][1]:
+            new_dict[key] = temp_dict[key]
+        elif get_input.lower() == artist[i][1]:
             new_dict[key] = temp_dict[key]
         i += 1
     return new_dict
