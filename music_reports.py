@@ -69,24 +69,6 @@ def time_range_album(temp_dict):
             print("Invalid year.")
             valid_range = False
 
-# def time_range_album(temp_dict):
-#     x = int(input("Please insert a starting year: "))
-#     y = int(input("Please insert an ending year: "))
-#     # os.system('clear')
-#     print(f'Displaying albums that came out between {x} and {y}.')
-#     years = []
-#     new_dict = {}
-#     for i in range(x, y):
-#         for key in temp_dict:
-#             if int(temp_dict[key][2]) == i:
-#                 years.append([key, temp_dict[key][2]])
-#             years.sort(key=lambda x: int(x[1]))
-#     for i in years:
-#         for key in temp_dict:
-#             if i[1] in temp_dict[key]:
-#                 new_dict[key] = temp_dict[key]
-#     return new_dict
-
 
 # function required in another function, shortest_longest
 
@@ -149,14 +131,29 @@ def artist_albums(temp_dict):
 # requirement #6 - After the user inputs an album name, print it
 
 def sort_by_album_name(temp_dict):
-    get_album_input = input("Enter album name: ")
-    os.system('clear')
-    print(f'Displaying results as requested album "{get_album_input}".')
-    new_dict = {}
-    for keys in temp_dict:
-        if get_album_input in keys:
-            new_dict[keys] = temp_dict[keys]
-            return new_dict
+    flag = True
+    while flag:
+        try:
+            get_album_input = input("Enter album name: ").title()
+            if get_album_input == '':
+                return {'Invalid Choice': ['Invalid choice.', 'Invalid choice.', '0000', 'Invalid choice.', '00:00']}
+            print(f'Displaying results as requested album "{get_album_input}".')
+            new_dict = {}
+            for keys in temp_dict:
+                if get_album_input in keys:
+                    new_dict[keys] = temp_dict[keys]
+                    flag = False
+                    return new_dict
+            lower = get_album_input.lower()
+            for z in temp_dict:
+                if lower in z:
+                    new_dict[z] = temp_dict[z]
+                    flag = False
+                    return new_dict
+        except:
+            print("Album was not found try again")
+        else:
+            print("Album was not found try again")
 
 
 # requirement # 7.1 Print the oldest album
@@ -224,24 +221,35 @@ def how_many_given_genre():
 # requirement #8 - suggested albums based on user input album
 
 def suggested_albums(temp_dict):
-    get_album_input = input('Enter album name: ')
-    os.system('clear')
-    print(f'Displaying suggestions based on given album "{get_album_input}".')
-    get_genre_from_input = ''
-    suggested = []
-    new_dict = {}
+    flag = True
+    while flag:
+        try:
+            get_album_input = input('Enter album name: ').title()
 
-    def get_genre():
-        for keys in temp_dict:
-            if get_album_input in keys:
-                return temp_dict[keys][3]
+            if get_album_input == '':
+                return {'Invalid Choice': ['Invalid choice.', 'Invalid choice.', '0000', 'Invalid choice.', '00:00']}
+            flag = False
+            get_genre_from_input = ''
+            new_dict = {}
 
-    get_genre_from_input = get_genre()
-    for keys in temp_dict:
-        albums_genre = temp_dict[keys][3]
-        if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
-            new_dict[keys] = temp_dict[keys]
-    return new_dict
+            def get_genre():
+                for keys in temp_dict:
+                    if get_album_input in keys:
+                        return temp_dict[keys][3]
+                for z in temp_dict:
+                    if get_album_input.lower() in z:
+                        return temp_dict[z][3]
+
+            get_genre_from_input = get_genre()
+            for keys in temp_dict:
+                albums_genre = temp_dict[keys][3]
+                if get_genre_from_input in albums_genre or albums_genre in get_genre_from_input:
+                    new_dict[keys] = temp_dict[keys]
+            print(f'Displaying suggestions based on given album "{get_album_input}".')
+            return new_dict
+        except:
+            print(f"Album {get_album_input} was not found try again")
+            flag = True
 
 
 # time validator function required in the next functions

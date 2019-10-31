@@ -162,6 +162,8 @@ def main():
             print('Thank you for using Lemonify, have a wonderful day.')
             exit()
         else:
+            print('Invalid command.')
+            input('Press Enter to continue...')
             os.system('clear')
 
 
