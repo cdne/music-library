@@ -38,23 +38,55 @@ def sort_by_genre(temp_dict):
 
 # requirement #3 Find albums inside a user given time range
 
+
 def time_range_album(temp_dict):
-    x = int(input("Please insert a starting year: "))
-    y = int(input("Please insert an ending year: "))
-    # os.system('clear')
-    print(f'Displaying albums that came out between {x} and {y}.')
-    years = []
-    new_dict = {}
-    for i in range(x, y):
-        for key in temp_dict:
-            if int(temp_dict[key][2]) == i:
-                years.append([key, temp_dict[key][2]])
-            years.sort(key=lambda x: int(x[1]))
-    for i in years:
-        for key in temp_dict:
-            if i[1] in temp_dict[key]:
-                new_dict[key] = temp_dict[key]
-    return new_dict
+    valid_range = False
+    while valid_range is False:
+        try:
+            valid_range = True
+            x = int(input("Please insert a starting year: "))
+            y = int(input("Please insert an ending year: "))
+            # os.system('clear')
+            print(f'Displaying albums that came out between {x} and {y}.')
+            years = []
+            new_dict = {}
+            if x <= y:
+                val1 = x
+                val2 = y
+            else:
+                val1 = y
+                val2 = x
+            for i in range(val1, val2+1):
+                for key in temp_dict:
+                    if int(temp_dict[key][2]) == i:
+                        years.append([key, temp_dict[key][2]])
+                    years.sort(key=lambda x: int(x[1]))
+            for i in years:
+                for key in temp_dict:
+                    if i[1] in temp_dict[key]:
+                        new_dict[key] = temp_dict[key]
+            return new_dict
+        except ValueError:
+            print("Invalid year.")
+            valid_range = False
+
+# def time_range_album(temp_dict):
+#     x = int(input("Please insert a starting year: "))
+#     y = int(input("Please insert an ending year: "))
+#     # os.system('clear')
+#     print(f'Displaying albums that came out between {x} and {y}.')
+#     years = []
+#     new_dict = {}
+#     for i in range(x, y):
+#         for key in temp_dict:
+#             if int(temp_dict[key][2]) == i:
+#                 years.append([key, temp_dict[key][2]])
+#             years.sort(key=lambda x: int(x[1]))
+#     for i in years:
+#         for key in temp_dict:
+#             if i[1] in temp_dict[key]:
+#                 new_dict[key] = temp_dict[key]
+#     return new_dict
 
 
 # function required in another function, shortest_longest
