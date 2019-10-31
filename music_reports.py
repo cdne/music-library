@@ -285,3 +285,4 @@ def export_new_to_file():
     with open("file.txt", 'w') as file:
         for i in list_of_albums:
             file.write(i + '\n')
+    return 'Library successfully exported.'

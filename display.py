@@ -117,7 +117,7 @@ def main():
             input("Press enter to continue...")
             os.system("clear")
         elif command == '4':
-            os.system("clear")
+            # os.system("clear")
             print_formatted(shortest_longest())
             input("Press enter to continue...")
             os.system("clear")
@@ -143,19 +143,21 @@ def main():
             os.system("clear")
         elif command == '9':
             # os.system("clear")
-            print_formatted(add_new_album())
+            # print_formatted(add_new_album())
+            add_new_album()
             input("Press enter to continue...")
             os.system("clear")
         elif command == '10':
             # os.system("clear")
-            print_formatted(edit_album())
+            # print_formatted(edit_album())
+            edit_album()
             input("Press enter to continue...")
             os.system("clear")
         elif command == '11':
             os.system("clear")
             print(export_new_to_file())
             input("Press enter to continue...")
-            os.system("clear") 
+            os.system("clear")
         elif command == '12':
             print('Thank you for using Lemonify, have a wonderful day.')
             exit()
